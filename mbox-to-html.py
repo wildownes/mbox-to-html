@@ -76,15 +76,14 @@ GPT4O_MINI_INPUT_COST = 0.150 / 1_000_000
 GPT4O_MINI_OUTPUT_COST = 0.600 / 1_000_000
 
 # Default caption prompts
-SIMPLE_CAPTION_PROMPT = "Describe this image in one concise factual sentence for alt text."
+SIMPLE_CAPTION_PROMPT = "Describe what this image shows in one factual sentence."
 
-AUTO_DETECT_PROMPT = """Analyze this image thoroughly:
-1. First, transcribe ALL visible text exactly as shown (including URLs, names, titles, headings)
-2. Then describe the visual elements (people, layout, colors, design)
-3. For data/charts: Include all numbers, labels, and values
-4. Format as bullet points for clarity
-
-Be comprehensive - never omit text content."""
+AUTO_DETECT_PROMPT = """Describe this image for someone who cannot see it:
+- If text is present, transcribe ALL of it exactly as shown
+- For photos/graphics without text, describe in 1-2 sentences
+- For logos, state the brand name and describe visual elements briefly
+- For documents/tables/charts, prioritize complete text/data extraction
+Focus on factual content. Be concise for visuals, complete for text."""
 
 # Legacy detailed prompt for backwards compatibility
 DETAILED_CAPTION_PROMPT = AUTO_DETECT_PROMPT
@@ -92,9 +91,9 @@ DETAILED_CAPTION_PROMPT = AUTO_DETECT_PROMPT
 # Backwards compatibility
 DEFAULT_CAPTION_PROMPT = AUTO_DETECT_PROMPT
 
-# Caption length limits
-MAX_TOKENS_SIMPLE = 60
-MAX_TOKENS_DETAILED = 500  # Much higher for complex content
+# Caption length limits - generous to avoid cutoffs
+MAX_TOKENS_SIMPLE = 300      # Enough for most descriptions without cutting off
+MAX_TOKENS_DETAILED = 1500   # Plenty of room for full page transcriptions
 
 # ---------- helper utilities ----------
 def safe_name(name: str) -> str:
